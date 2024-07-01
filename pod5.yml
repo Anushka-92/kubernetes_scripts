@@ -1,0 +1,16 @@
+#----------------------------labels creation----------------------------------
+##Key-value pairs that are attached to objects such as pods, services, and deployments. 
+##They are used to organize, select, and manage these objects efficiently. Labels are not unique; many objects can have the same label, and one object can have multiple labels
+  kind: Pod                                               #Object type
+  apiVersion: v1                                           #API version
+  metadata:                                               #describe the object
+        name: labelspod1                                    #name of object
+        labels:                                             #specifies the labels details under it.
+            state : maharashtra                           # <keyname1> : <value>
+            city : pune                                   # <keyname2> : <value>
+  spec:                                                   #(properties of container) of object
+        containers:                                       #container details
+            - name: resource                              
+              image: centos                         
+              command: ["/bin/bash", "-c" , "while true; do echo Hello-World; sleep 5 ; done"]      #command to run on container
+             
