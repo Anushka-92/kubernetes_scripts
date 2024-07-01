@@ -1,0 +1,15 @@
+#-----------------Creation of Multiple pods ----------------------
+  kind: Pod                                               #Object type
+  apiVersion: v1                                           #API version
+  metadata:                                               #describe the object
+        name: testpod1                                    #name of object
+        annotation:                                       # to describe object usage
+            description: our first testpod
+  spec:                                                   #(properties of container) of object
+        containers:                                     #container details
+              - name: c00                              #container nam
+                image: ubuntu                          #base image which is used to create container
+                command: ["/bin/bash", "-c" , "while true; do echo Hello-World; sleep 5 ; done"]      #command to run on container
+               - name: c01                              #container nam
+                image: ubuntu                          #base image which is used to create container
+                command: ["/bin/bash", "-c" , "while true; do echo Hello-Universe; sleep 5 ; done"]      #command to run on container
