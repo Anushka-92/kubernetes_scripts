@@ -1,0 +1,19 @@
+  #----------------------------ReplicaTController 
+  #It is used for scaling and auto healing purpose. It is old one which only supports equality based operations.
+kind: ReplicationController  # Specifies that the type of object being created is a ReplicationController
+apiVersion: v1  # Specifies the version of the Kubernetes API to use
+metadata:  # Contains metadata about the object
+  name: myreplicationcontroller  # The name of the ReplicationController
+spec:  # Defines the desired state of the ReplicationController
+  replicas: 2  # Specifies the number of pod replicas to maintain
+  selector:  # Defines a label selector to identify the pods managed by this ReplicationController
+    myname: Anushka  # The key-value pair that must match the labels of the pods
+  template:  # Provides the pod template for creating new pods
+    metadata:  # Contains metadata for the pods, including labels
+      labels:  # Defines labels for the pods created by this ReplicationController
+        myname: Anushka  # The label applied to the pods, must match the selector
+    spec:  # Defines the specification for the pods
+      containers:  # Specifies the container details
+        - name: d01  # The name of the container
+          image: ubuntu  # The container image to use
+          command: ["/bin/bash", "-c", "while true; do echo Hello-World; sleep 5; done"]  # The command to run inside the container
