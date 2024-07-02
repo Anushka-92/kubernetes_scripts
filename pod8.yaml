@@ -1,0 +1,47 @@
+#----------------------Replica set---------------------
+#It is used for scaling and auto healing purpose .It is new one which supports both equality based and set based operations.
+  kind: ReplicatSet                                 #Object type
+  apiVersion: apps/v1                                          
+  metadata:                                               
+        name: myreplicaset                     
+  spec:                                                   
+        replicas: 2                                       # Desired no of pods
+        selector:                                         #tells controller, which pods to watch/belong to this replication set
+          matchExpressions:                               #these must match label
+            - {key: myname, opeartor: In, values: [anu,anush,anushka]}
+            # - {key: env, opeartor: NotIn, values: [production]}
+        template: 
+          metadata:           
+            labels:                                       # Selector value must need to match label values given in template
+             myname: Anushka  
+          spec:
+            containers:                                       #container details
+                - name: d01                              
+                  image: ubuntu                        
+                  command: ["/bin/bash", "-c" , "while true; do echo Hello-World; sleep 5 ; done"]   
+        
+#----------------------Replica set---------------------
+# It is used for scaling and auto healing purposes. It is the new one which supports both equality-based and set-based operations.
+kind: ReplicaSet                          # Specifies that the type of object being created is a ReplicaSet
+apiVersion: apps/v1                       # Specifies the version of the Kubernetes API to use
+metadata:                                 # Contains metadata about the object
+  name: myreplicaset                      # The name of the ReplicaSet
+spec:                                     # Defines the desired state of the ReplicaSet
+  replicas: 2                             # Specifies the desired number of pod replicas
+  selector:                               # Tells the controller which pods to watch/belong to this ReplicaSet
+    matchExpressions:                     # Defines a set-based label selector
+      - key: myname                       # The key of the label to match
+        operator: In                      # The operator for the label selector (fixed spelling from "opeartor")
+        values: [anu, anush, anushka]      # The values to match for the specified key
+                                            # - key: env  # The key of another label to match
+                                            #   operator: NotIn  # The operator for the label selector
+                                            #   values: [production]  # The values to exclude for the specified key
+  template:                                 # Provides the pod template for creating new pods
+    metadata:                               # Contains metadata for the pods, including labels
+      labels:                               # Defines labels for the pods created by this ReplicaSet
+        myname: Anushka                     # The label applied to the pods, must match one of the values in the selector
+    spec:                                   # Defines the specification for the pods
+      containers:                           # Specifies the container details
+        - name: d01                         # The name of the container
+          image: ubuntu                     # The container image to use
+          command: ["/bin/bash", "-c", "while true; do echo Hello-World; sleep 5; done"]  # The command to run inside the container
